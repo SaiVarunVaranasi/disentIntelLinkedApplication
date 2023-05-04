@@ -31,10 +31,42 @@ class Inferencer(object):
 
 
 	def load_sample(self, sample_path, speaker_id, gender=None):
+		# if wav is provided as path
 		self.speaker_id = speaker_id
 		self.prng = RandomState(int(self.speaker_id))
 		_, _, mspec, f0_norm = self.gen_mel_f0(sample_path, gender)
 		return mspec, f0_norm
+
+
+	def mel_f0(self, frames, sample_rate, speaker_id, gender=None):
+		# if wav is provided as frames and sample_rate
+		self.speaker_id = speaker_id
+		self.prng = RandomState(int(self.speaker_id))
+		
+		if gender == 'M':
+			lo, hi = 50, 250
+		elif gender == 'F':
+			lo, hi = 100, 600
+		# read audio file
+		x, sr = np.array(frames), sample_rate
+		assert sr == 16000, 'Sample rate has to be 16kHz.'
+		if x.shape[0] % 256 == 0:
+			x = np.concatenate((x, np.array([1e-06])), axis=0)
+		y = signal.filtfilt(self.b, self.a, x)
+		wav = y * 0.96 + (self.prng.rand(y.shape[0])-0.5)*1e-06
+		# generate spectrogram
+		D = pySTFT(wav).T
+		D_mel = np.dot(D, self.mel_basis)
+		D_db = 20 * np.log10(np.maximum(self.min_level, D_mel)) - 16
+		S = (D_db + 100) / 100
+		# extract f0 (pitch contour)
+		f0_rapt = sptk.rapt(wav.astype(np.float32)*32768, sr, 256, min=lo, max=hi, otype=2)
+		index_nonzero = (f0_rapt != -1e10)
+		mean_f0, std_f0 = np.mean(f0_rapt[index_nonzero]), np.std(f0_rapt[index_nonzero])
+		f0_norm = speaker_normalization(f0_rapt, index_nonzero, mean_f0, std_f0)
+
+		assert len(S) == len(f0_rapt), 'length of melspec and pitch contour do not match'
+		return S, f0_norm
 
 
 	def prepare_data(self, mspec, f0_norm):

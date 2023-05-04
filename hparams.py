@@ -1,4 +1,5 @@
 from tfcompat.hparam import HParams
+# import tensorflow._api.v2.compat.v1 as tf
 
 # NOTE: If you want full control for model architecture. please take a look
 # at the code and change whatever you want. Some hyper parameters are hardcoded.

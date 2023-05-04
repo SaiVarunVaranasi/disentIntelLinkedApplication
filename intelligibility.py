@@ -17,8 +17,8 @@ from matplotlib.font_manager import FontProperties
 import csv
 import soundfile
 from inferencer import Inferencer
-from assets.py_vad_tool.audio_tools import * 
 from sox import file_info
+from assets.py_vad_tool.audio_tools import * 
 from assets.py_vad_tool.unsupervised_vad import compute_log_nrg, nrg_vad
 
 
