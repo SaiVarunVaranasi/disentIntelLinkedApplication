@@ -10,8 +10,8 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from inferencer import Inferencer
-from assets.py_vad_tool.audio_tools import * 
-from assets.py_vad_tool.unsupervised_vad import compute_log_nrg, nrg_vad
+from assets.py_vad_tool.py_vad_tool.audio_tools import * 
+from assets.py_vad_tool.py_vad_tool.unsupervised_vad import compute_log_nrg, nrg_vad
 
 
 def cut_vad_wav(

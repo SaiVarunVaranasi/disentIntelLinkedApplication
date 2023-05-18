@@ -1,0 +1,3 @@
+[submodule "assets/py_vad_tool/py_vad_tool"]
+	path = assets/py_vad_tool/py_vad_tool
+	url = https://github.com/idnavid/py_vad_tool.git
