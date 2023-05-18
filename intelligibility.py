@@ -1,4 +1,5 @@
 from json.tool import main
+import numpy as np
 import statistics
 import random
 from sklearn.linear_model import LogisticRegression, LinearRegression
@@ -18,8 +19,8 @@ import csv
 import soundfile
 from inferencer import Inferencer
 from sox import file_info
-from assets.py_vad_tool.audio_tools import * 
-from assets.py_vad_tool.unsupervised_vad import compute_log_nrg, nrg_vad
+from assets.py_vad_tool.py_vad_tool.audio_tools import * 
+from assets.py_vad_tool.py_vad_tool.unsupervised_vad import compute_log_nrg, nrg_vad
 
 
 
