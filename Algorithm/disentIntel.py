@@ -169,8 +169,8 @@ def plot(code, ref_codes, pat_codes, pat_code_aligned, diff):
 
 if __name__ == '__main__':
     # Example
-    ref_wav = '/Users/tobi/Dev/aibe/disentIntel/example/CF02_B1_C1_M2.wav'
-    patho_wav = '/Users/tobi/Dev/aibe/disentIntel/example/F02_B1_C1_M2.wav'
+    ref_wav = './example/CF02_B1_C1_M2.wav'
+    patho_wav = './example/F02_B1_C1_M2.wav'
 
     ref_codes = wav_to_codes(ref_wav, 'F')
     pat_codes = wav_to_codes(patho_wav, 'F')
