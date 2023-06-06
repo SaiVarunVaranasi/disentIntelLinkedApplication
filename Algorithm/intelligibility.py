@@ -30,7 +30,7 @@ def create_UASpeech_custom_v2():
         """
         
         # creating a list with all 765 words per speaker
-        word_file = '/Users/tobi/Data/corpora/UASPEECH_SAGI/transcription_lut.csv'
+        word_file = '/Algorithm/files/Files/transcription_lut.csv/transcription_lut.csv'
         wordlist = []
         with open(word_file, newline='') as handle:
                 reader = csv.reader(handle)
