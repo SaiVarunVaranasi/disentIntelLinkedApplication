@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import wave
 
-from disentIntel import cut_vad_wav
+from disentIntel.py import cut_vad_wav
 
 
 class SpeechData(BaseModel):
