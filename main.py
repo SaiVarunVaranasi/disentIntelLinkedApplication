@@ -4,6 +4,7 @@ import wave
 import sys
 sys.path.append('./Algorithm')
 from disentIntel import cut_vad_wav
+from fastapi.middleware.cors import CORSMiddleware
 
 
 
@@ -12,6 +13,20 @@ class SpeechData(BaseModel):
     field2: str
 
 app = FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+    # Add more origins if needed
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():
