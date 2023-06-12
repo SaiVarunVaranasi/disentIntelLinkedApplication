@@ -29,7 +29,7 @@ def create_UASpeech_custom_v2():
         """
         
         # creating a list with all 765 words per speaker
-        word_file = '/Algorithm/files/Files/transcription_lut.csv'
+        word_file = '//files/Files/transcription_lut.csv'
         wordlist = []
         with open(word_file, newline='') as handle:
                 reader = csv.reader(handle)
@@ -245,11 +245,11 @@ def scatter_plot_regression():
         meta = 'reference_2'    # meta_0, meta_1, meta_2, meta_3 - and for all of then '_swapped'
 
         intelligibility = {} 
-        with open('Algorithm/files/Data/' + version + '/intelligibility.csv', mode='r') as handle:
+        with open('/files/Data/' + version + '/intelligibility.csv', mode='r') as handle:
                 reader = csv.reader(handle)
                 intelligibility = {rows[0]:rows[1] for rows in reader}
 
-        meta_dir = 'Algorithm/files/Data' + version + '/' + meta + '/pathological'
+        meta_dir = '/files/Data' + version + '/' + meta + '/pathological'
         path_speaker_codes = {}
         _, dirs, _ = next(os.walk(meta_dir))
         for dir in sorted(dirs):
@@ -264,7 +264,7 @@ def scatter_plot_regression():
                                         codes.append(tmp)
                 path_speaker_codes[speaker] = codes
         
-        meta_dir = 'Algorithm/files/Data' + version + '/' + meta + '/control'
+        meta_dir = '/files/Data' + version + '/' + meta + '/control'
         control_speaker_codes = {}
         _, dirs, _ = next(os.walk(meta_dir))
         for dir in sorted(dirs):
@@ -354,7 +354,7 @@ def nice_scatter(x_c, y_c, x_p, y_p, samples, avg_x, avg_x_p, m, b, m_p, b_p):
         """
         Plots a nice scatter plot, for usage in the paper. Specify which meta dir you want to use.
         """
-        out_path = 'Algorithm/files/Data/scatter'
+        out_path = '/files/Data/scatter'
         times_font = {'fontname':'Times New Roman'}
         font = font_manager.FontProperties(family='Times New Roman', style='normal', size=14)
 
@@ -397,11 +397,11 @@ def dtw_diff_condense():
         meta_ref_f = 'CF02'
         meta_ref_m = 'CM08'
         version = 'UASPEECH_Custom_3'
-        root_dir = '/Algorithm/files/Data/' + version + '/' + meta_dir
+        root_dir = '//files/Data/' + version + '/' + meta_dir
 
         ref_f, ref_m = dict(), dict()   # order: zc, zf, zr, mspec, mspecOutNoT
-        ref_dir = '/Algorithm/files/Data/' + version + '/meta/reference'
-        ref_dir = '/Algorithm/files/Data/' + version + '/' + meta_dir + '/reference'
+        ref_dir = '//files/Data/' + version + '/meta/reference'
+        ref_dir = '//files/Data/' + version + '/' + meta_dir + '/reference'
         _, dirs, _ = next(os.walk(ref_dir))
         for dir in sorted(dirs):
                 # female reference
@@ -431,8 +431,8 @@ def dtw_diff_condense():
                                 ref_m[fid] = tmp
 
         # check if all reference files are also in the other folders (disregarding mic)
-        ref_path_f = '/Algorithm/files/Data/' + version + '/' + meta_dir + '/reference/' + meta_ref_f
-        ref_path_m = '/Algorithm/files/Data/' + version + '/' + meta_dir + '/reference/' + meta_ref_m
+        ref_path_f = '//files/Data/' + version + '/' + meta_dir + '/reference/' + meta_ref_f
+        ref_path_m = '//files/Data/' + version + '/' + meta_dir + '/reference/' + meta_ref_m
         _, subdirs_m, _ = next(os.walk(ref_path_m))
         _, subdirs_f, _ = next(os.walk(ref_path_f))
 
@@ -645,7 +645,7 @@ def reset_meta_dir():
         """
         
         meta = 'meta_0_swapped'
-        root_dir = '/Algorithm/files/Data/Data/corpora/UASPEECH_Custom/' + meta
+        root_dir = '//files/Data/Data/corpora/UASPEECH_Custom/' + meta
 
         _, dirs, _ = next(os.walk(root_dir))
         for dir in sorted(dirs):
@@ -683,11 +683,11 @@ def n_utterances_t_times(n, T):
         # target_dir = '/Users/tobi/Data/corpora/' + version + '/n_utterances/10'
 
         intelligibility = {} 
-        with open('/Algorithm/files/Data/' + version + '/intelligibility.csv', mode='r') as handle:
+        with open('//files/Data/' + version + '/intelligibility.csv', mode='r') as handle:
                 reader = csv.reader(handle)
                 intelligibility = {rows[0]:rows[1] for rows in reader}
 
-        meta_dir = '/Algorithm/files/Data/' + version + '/' + meta + '/pathological'
+        meta_dir = '//files/Data/' + version + '/' + meta + '/pathological'
         path_speaker_codes = {}
         _, dirs, _ = next(os.walk(meta_dir))
         for dir in sorted(dirs):
@@ -707,7 +707,7 @@ def n_utterances_t_times(n, T):
                                                 codes.append(tmp)
                 path_speaker_codes[speaker] = codes
         
-        meta_dir = '/Algorithm/files/Data/' + version + '/' + meta + '/control'
+        meta_dir = '//files/Data/' + version + '/' + meta + '/control'
         control_speaker_codes = {}
         _, dirs, _ = next(os.walk(meta_dir))
         for dir in sorted(dirs):

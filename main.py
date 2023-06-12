@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import JSONResponse
-from disentIntel import cut_vad_wav
+from disentIntel import code_pair_diff, cut_vad_wav, wav_to_codes
 
 from solver import Solver
 from data_loader import get_loader
@@ -74,16 +74,27 @@ def your_function(data: SpeechData):
     nrg_thr_value = 0.1
     context_value = 30
 
-    recordedData = data.field2.read()
-    wav_file_path_RcrdDta = "./example/CF02_B1_C1_M2.wav"
-    convertBlobtoWavFile(wav_file_path_RcrdDta, recordedData)
-    processed_RcrdDta = cut_vad_wav(
-        wav_file_path_RcrdDta,
-        c_value=c_value,
-        percent_thr=percent_thr_value,
-        nrg_thr=nrg_thr_value,
-        context=context_value
-    )
+    # recordedData = data.field2.read()
+    # wav_file_path_RcrdDta = "./example/CF02_B1_C1_M2.wav"
+    # convertBlobtoWavFile(wav_file_path_RcrdDta, recordedData)
+    # processed_RcrdDta = cut_vad_wav(
+    #     wav_file_path_RcrdDta,
+    #     c_value=c_value,
+    #     percent_thr=percent_thr_value,
+    #     nrg_thr=nrg_thr_value,
+    #     context=context_value
+    # )
+    ref_wav = './example/CF02_B1_C1_M2.wav'
+    patho_wav = './example/F02_B1_C1_M2.wav'
+
+    ref_codes = wav_to_codes(ref_wav, 'F')
+    pat_codes = wav_to_codes(patho_wav, 'F')
+
+    zc_diff, pat_zc_aligned = code_pair_diff(ref_codes['zc'], pat_codes['zc'])
+    zr_diff, pat_zr_aligned = code_pair_diff(ref_codes['zr'], pat_codes['zr'])
+    zf_diff, pat_zf_aligned = code_pair_diff(ref_codes['zf'], pat_codes['zf'])
+
+    plot('zc', ref_codes, pat_codes, pat_zc_aligned, zc_diff)
 
     response = {"message": "API endpoint successfully called"}
     return response
