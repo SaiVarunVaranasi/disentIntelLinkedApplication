@@ -5,7 +5,9 @@ import sys
 sys.path.append('./Algorithm')
 from disentIntel import cut_vad_wav
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi.openapi.utils import get_openapi
+from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.responses import JSONResponse
 
 
 class SpeechData(BaseModel):
@@ -65,5 +67,28 @@ def convertBlobtoWavFile(wav_file_path, audio_data):
         wav_file.setframerate(44100)  # Set the sample rate (e.g., 44100 Hz)
 
         wav_file.writeframes(audio_data)
+        
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="Your API Title",
+        version="1.0.0",
+        description="Your API description",
+        routes=app.routes,
+    )
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+@app.get("/docs", include_in_schema=False)
+async def swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url="/openapi.json",
+        title="Your API documentation"
+    )
+
+@app.get("/openapi.json", include_in_schema=False)
+async def get_openapi_endpoint():
+    return JSONResponse(custom_openapi())
 
 
